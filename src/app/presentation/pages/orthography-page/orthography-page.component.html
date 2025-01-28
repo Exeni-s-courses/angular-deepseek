@@ -1,0 +1,29 @@
+<div class="chat-container">
+  <div class="chat-messages">
+    <div class="grid gap-y-2">
+      <!-- Chat Messages -->
+      <app-chat-message
+        text="Escribe la frase o texto que quieras que revise."
+      />
+      @for (message of messages(); track $index) { @if (message.isDeep) {
+      <!-- <app-chat-message [text]="message.text" /> -->
+      <app-deep-message-orthography
+        [text]="message.text"
+        [errors]="message.info!.errors"
+        [userScore]="message.info!.userScore"
+      ></app-deep-message-orthography>
+      }@else {
+      <app-my-message [text]="message.text" />
+      } } @if (isLoading()) {
+      <app-typing-loader />
+      }
+    </div>
+  </div>
+
+  <!-- Message box -->
+  <app-text-message-box
+    placeholder="Escribe aquí lo que deseas..."
+    (onMessage)="handleMessage($event)"
+    [disabledCorrections]="true"
+  />
+</div>
