@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { orthographyUseCase } from '@use-cases/index';
+import { orthographyUseCase, prosConsStreamUseCase, prosConsUseCase } from '@use-cases/index';
 import { from } from 'rxjs';
 
 @Injectable({
@@ -8,5 +8,11 @@ import { from } from 'rxjs';
 export class DeepSeekService {
   checkOrthography(prompt: string) {
     return from(orthographyUseCase(prompt));
+  }
+  prosConsDiscusser(prompt: string) {
+    return from(prosConsUseCase(prompt));
+  }
+  prosConsDiscusserStream(prompt: string, abortSignal: AbortSignal) {
+    return prosConsStreamUseCase(prompt, abortSignal);
   }
 }
